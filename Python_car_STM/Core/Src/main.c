@@ -47,13 +47,13 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
-uint8_t count_l = 0; //счетчик левого датчика оборотов
-uint8_t count_r = 0; //счетчик правого датчика оборотов
+uint8_t count_l = 0; //counter of the left speed sensor
+uint8_t count_r = 0; //counter of the right speed sensor
 
-uint8_t buf[5]; //buf[0] - направление вращения, buf[1] - кол-во шагов
-uint8_t command[4]; //команды для выполнения, аналогично buf
+uint8_t buf[5]; //buf[0] - direction of rotation, buf[1] - count of step
+uint8_t command[4]; //commands to execute, similar to buf
 uint8_t delay;
-uint8_t dataReceived = 0; // признак данное получено
+uint8_t dataReceived = 0; // flag for receiving data
 
 /* USER CODE END PV */
 
