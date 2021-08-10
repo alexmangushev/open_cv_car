@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-import serial
+#import serial
 import cv2
 import numpy
 import time
 import math
+
+# UART settings
+#port = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=3.0)
 
 # red square detection flag for stopping
 red_square_detect = 0
@@ -123,6 +126,42 @@ if __name__ == '__main__':
                 s = cv2.contourArea(i)
 
                 if s == max_area_blue:
+
+                    '''if ((cv2.minAreaRect(i)[0][0] > (weight/2+edge)) or ((angle_rotate > 110) and (angle_rotate < 160))):
+                        state = 'R'
+                        time_delay1 = cv2.minAreaRect(i)[0][0] - ( weight/2 + edge )
+                        if (angle_rotate > 110) and (angle_rotate < 160):
+                            time_delay2 = (180 - angle_rotate) / 2 
+                        else:
+                            time_delay2 = 1
+
+                        if (time_delay1 > time_delay2):
+                            time_delay = time_delay1
+                        else:
+                            time_delay = time_delay2 
+                        #print time_delay,'R'
+
+                        if time_delay <= 0:
+                            time_delay = 1
+
+                    elif ((cv2.minAreaRect(i)[0][0] < (weight/2-edge)) or ((angle_rotate > 17) and (angle_rotate < 70))):
+                        state = 'L'
+                        time_delay1 = weight/2 - edge - cv2.minAreaRect(i)[0][0]
+                        if (angle_rotate > 17) and (angle_rotate < 70):
+                            time_delay2 = angle_rotate / 2
+                        else:
+                            time_delay2 = 1
+                        if (time_delay1 > time_delay2):
+                            time_delay = time_delay1
+                        else:
+                            time_delay = time_delay2 
+
+                        #print time_delay,'L'
+
+                        if time_delay <= 0:
+                            time_delay = 1
+                    else:
+                        state = 'F' '''
 
                     # минимальный описанный прямоугольник
                     rect = cv2.minAreaRect(i)
@@ -263,22 +302,22 @@ if __name__ == '__main__':
                 if red_square_detect == 1:
                     # stop
                     # port.write(bytes(string, 'utf-8'))
-                    port.write(";2" + str(time_delay) + "\n")
+                    #port.write(";2" + str(time_delay) + "\n")
                     print("stop")
 
                 elif state == 'R':
                     # moving right
-                    port.write(";4" + str(time_delay) + "\n")
+                    #port.write(";4" + str(time_delay) + "\n")
                     print(";4" + str(int(time_delay)))
 
                 elif state == 'L':
                     # moving left
-                    port.write(";3" + str(time_delay) + "\n")
+                    #port.write(";3" + str(time_delay) + "\n")
                     print(";3" + str(int(time_delay)))
 
                 elif state == 'F':
                     # moving forward
-                    port.write(";1" + str(time_delay + 1) + "\n")
+                    #port.write(";1" + str(time_delay + 1) + "\n")
                     print(";1" + str(int(time_delay + 1)))
 
             cv2.imshow('contours', img)
